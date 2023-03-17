@@ -18,12 +18,6 @@ func GeneratePageByItemID(outPath string, projectName string) {
 	data.Init()
 	dir := outPath + "/" + projectName
 	item, err := data.Item.TakeItem(projectName)
-	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		if err := os.MkdirAll(dir, 0755); err != nil {
-			fmt.Printf("创建目录 %s 失败：%s\n", dir, err)
-			return
-		}
-	}
 	if err != nil {
 		panic("not found this project")
 	}
@@ -38,7 +32,7 @@ func GeneratePageByItemID(outPath string, projectName string) {
 		fmt.Println(newCataLog.CatName.String, newCataLog.CatId.Int32)
 		wg.Add(1)
 		go func() {
-			tempPath := dir + newCataLog.CatName.String
+			tempPath := dir + "/" + newCataLog.CatName.String
 			if _, err := os.Stat(tempPath); os.IsNotExist(err) {
 				if err := os.MkdirAll(tempPath, 0755); err != nil {
 					fmt.Printf("创建目录 %s 失败：%s\n", dir, err)
