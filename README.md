@@ -1,11 +1,11 @@
 # ruapi-generate-md
 a tools to generate api markdown file by use showdoc's sqlite in type of runapi 
 
-###1.clone this project
+### 1.clone this project
 ```shell
 git clone https://github.com/FGadvancer/ruapi-generate-md.git
 ```
-###2.exec the shell
+### 2.exec the shell
 ```shell
 ./start_and_zip.sh your runapi project name(./start_and_zip serverApi)
 ```
