@@ -22,7 +22,6 @@ func NewDataBase(dbDir string) *DataBase {
 }
 
 func (d *DataBase) Init() {
-	//dbFileName := "/showdoc_data/html/Sqlite" + "/showdoc.db.php"
 	db, err := gorm.Open(sqlite.Open(d.dbDir), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
 	if err != nil {
 		panic(err)

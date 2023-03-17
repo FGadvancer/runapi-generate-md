@@ -1,6 +1,6 @@
 module github.com/ruapi-generate-md
 
-go 1.20
+go 1.17
 
 require (
 	gorm.io/driver/sqlite v1.4.4

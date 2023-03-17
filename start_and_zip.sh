@@ -16,7 +16,7 @@ fi
         exit -1
         else
     cd   $bin_dir
-   ./runapi_generator
+   ./runapi_generator -p $1
    cd ..
-   zip  OpenIMServer.zip OpenIM服务器API/* -r
+   zip  $1.zip $1/* -r
   fi

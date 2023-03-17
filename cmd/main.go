@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/ruapi-generate-md/internal"
 	"os"
@@ -20,6 +21,8 @@ func main() {
 	parentDir := filepath.Dir(dir)
 
 	fmt.Printf("当前代码执行目录的上一级目录为：%s\n", parentDir)
-	internal.GeneratePageByItemID("..", "OpenIM服务器API")
+	projectName := flag.String("p", "ServerAPI", "api project name")
+	flag.Parse()
+	internal.GeneratePageByItemID("..", *projectName)
 	fmt.Println("generate end cost time ", time.Since(t))
 }
