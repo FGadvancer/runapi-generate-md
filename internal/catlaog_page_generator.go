@@ -5,22 +5,28 @@ import (
 	"fmt"
 	"github.com/ruapi-generate-md/pkg"
 	"github.com/ruapi-generate-md/pkg/db"
+	"os"
 	"strings"
 	"sync"
 )
 
-func GeneratePageByItemID() {
+func GeneratePageByItemID(outPath string, projectName string) {
 	var wg sync.WaitGroup
 	dbFileName := "/showdoc_data/html/Sqlite" + "/showdoc.db.php"
 	//dbFileName := "./showdoc.db.php"
 	data := db.NewDataBase(dbFileName)
 	data.Init()
-	mdPath := ""
-	item, err := data.Item.TakeItem("OpenIM服务器API")
+	dir := outPath + "/" + projectName
+	item, err := data.Item.TakeItem(projectName)
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			fmt.Printf("创建目录 %s 失败：%s\n", dir, err)
+			return
+		}
+	}
 	if err != nil {
 		panic("not found this project")
 	}
-	mdPath += "./" + item.ItemName.String + "/"
 	headerArgs, err := data.RunapiGlobalParam.TakeRunapiGlobalHeaderParam(item.ItemId)
 	if err != nil {
 		panic("not found this header")
@@ -32,7 +38,13 @@ func GeneratePageByItemID() {
 		fmt.Println(newCataLog.CatName.String, newCataLog.CatId.Int32)
 		wg.Add(1)
 		go func() {
-			tempPath := mdPath + newCataLog.CatName.String
+			tempPath := dir + newCataLog.CatName.String
+			if _, err := os.Stat(tempPath); os.IsNotExist(err) {
+				if err := os.MkdirAll(tempPath, 0755); err != nil {
+					fmt.Printf("创建目录 %s 失败：%s\n", dir, err)
+					return
+				}
+			}
 			pages, _ := data.Page.TakePages(newCataLog.CatId, item.ItemId)
 			for _, page := range pages {
 				//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)

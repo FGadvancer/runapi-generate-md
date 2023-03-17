@@ -9,6 +9,6 @@ import (
 func main() {
 	t := time.Now()
 	fmt.Println("generate start at ", t)
-	internal.GeneratePageByItemID()
+	internal.GeneratePageByItemID("", "OpenIM服务器API")
 	fmt.Println("generate end cost time ", time.Since(t))
 }

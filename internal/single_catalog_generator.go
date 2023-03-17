@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ruapi-generate-md/pkg"
-	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -147,7 +147,7 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	titleWrite(&sb, "失败返回示例的参数说明\n\n", 4)
 	respTableWrite(&sb, data.Response.ResponseFailParamsDesc)
 
-	err = ioutil.WriteFile(catalogPath+"/"+bigTile+".md", []byte(sb.String()), 0644)
+	err = os.WriteFile(catalogPath+"/"+bigTile+".md", []byte(sb.String()), 0644)
 	//err = ioutil.WriteFile(bigTile+".md", []byte(sb.String()), 0644)
 	if err != nil {
 		fmt.Println(err)
