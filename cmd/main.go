@@ -20,6 +20,6 @@ func main() {
 	parentDir := filepath.Dir(dir)
 
 	fmt.Printf("当前代码执行目录的上一级目录为：%s\n", parentDir)
-	internal.GeneratePageByItemID("/data/ruapi-generate-md", "OpenIM服务器API")
+	internal.GeneratePageByItemID("..", "OpenIM服务器API")
 	fmt.Println("generate end cost time ", time.Since(t))
 }
