@@ -20,7 +20,7 @@ func GeneratePageByItemID() {
 	if err != nil {
 		panic("not found this project")
 	}
-	mdPath += "/" + item.ItemName.String + "/"
+	mdPath += "./" + item.ItemName.String + "/"
 	headerArgs, err := data.RunapiGlobalParam.TakeRunapiGlobalHeaderParam(item.ItemId)
 	if err != nil {
 		panic("not found this header")
