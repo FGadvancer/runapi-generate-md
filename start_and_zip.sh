@@ -18,5 +18,5 @@ fi
     cd   $bin_dir
    ./runapi_generator
    cd ..
-   tar -czvf OpenIM-Server.zip OpenIM服务器API/
+   tar -czvf OpenIM-Server.tar OpenIM服务器API/
   fi
