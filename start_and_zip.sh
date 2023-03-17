@@ -18,5 +18,5 @@ fi
     cd   $bin_dir
    ./runapi_generator
    cd ..
-   zip  o.zip OpenIM服务器API/* -r
+   zip  OpenIMServer.zip OpenIM服务器API/* -r
   fi
