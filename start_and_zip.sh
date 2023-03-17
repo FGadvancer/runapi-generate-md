@@ -11,12 +11,11 @@ bin_dir="./bin"
 if [ ! -d $bin_dir ]; then
   mkdir -p $bin_dir
 fi
-./build_all_service.sh
 
   if [ $? -ne 0 ]; then
         exit -1
         else
-    cd   bin_dir
+    cd   $bin_dir
    ./runapi_generator
    cd ..
    tar -czvf OpenIM-Server.zip OpenIM服务器API/
