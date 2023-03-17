@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-
-
 bin_dir="./bin"
 #Automatically created when there is no bin, logs folder
 if [ ! -d $bin_dir ]; then
