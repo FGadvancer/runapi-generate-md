@@ -12,6 +12,12 @@ if [ ! -d $bin_dir ]; then
   mkdir -p $bin_dir
 fi
 
+if [ -z "$1" ]; then
+    echo "args is null you should ./start_and_zip your project name(the type must be runapi)"
+            exit -1
+else
+fi
+
   if [ $? -ne 0 ]; then
         exit -1
         else
