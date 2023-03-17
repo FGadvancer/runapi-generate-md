@@ -4,6 +4,7 @@ bin_dir="./bin"
 #Automatically created when there is no bin, logs folder
 if [ ! -d $bin_dir ]; then
   mkdir -p $bin_dir
+fi
 
 #begin path
 begin_path=$PWD
