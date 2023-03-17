@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+
+COLOR_SUFFIX="\033[0m"
+RED_PREFIX="\033[31m"
+GREEN_PREFIX="\033[32m"
+YELLOW_PREFIX="\033[33m"
+
 bin_dir="./bin"
 #Automatically created when there is no bin, logs folder
 if [ ! -d $bin_dir ]; then
