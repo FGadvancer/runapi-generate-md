@@ -15,7 +15,7 @@ func GeneratePageByItemID(outPath string, projectName string) {
 		{Name: "errCode", Type: "int", Remark: "错误码,0表示成功"},
 		{Name: "errMsg", Type: "string", Remark: "错误简要信息,无错误时为空"},
 		{Name: "errDlt", Type: "errDlt", Remark: "错误详细信息,无错误时为空"},
-		{Name: "data", Type: "object", Remark: "对象，具体结构见下方"},
+		{Name: "data", Type: "object", Remark: "通用数据对象，具体结构见下方"},
 	}
 	for _, v := range sucessData {
 		successMap[v.Name] = v
