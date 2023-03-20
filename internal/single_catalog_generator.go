@@ -97,12 +97,9 @@ func reqTableWrite(sb *strings.Builder, data []pkg.Header) {
 
 func successRespTableWrite(sb *strings.Builder, data []pkg.Response) {
 	head := pkg.Response{Type: "类型", Name: "参数名", Remark: "说明"}
-	for _, v := range data {
+	for i, v := range data {
 		if newValue, ok := successMap[v.Name]; ok {
-			fmt.Println("come here", v, newValue)
-			(&v).Name = newValue.Name
-			(&v).Remark = newValue.Remark
-			(&v).Type = newValue.Type
+			data[i] = newValue
 		}
 	}
 	data = append([]pkg.Response{head}, data...)
