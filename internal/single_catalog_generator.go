@@ -100,9 +100,9 @@ func successRespTableWrite(sb *strings.Builder, data []pkg.Response) {
 	for _, v := range data {
 		if newValue, ok := successMap[v.Name]; ok {
 			fmt.Println("come here", v, newValue)
-			v.Name = newValue.Name
-			v.Remark = newValue.Remark
-			v.Type = newValue.Type
+			(&v).Name = newValue.Name
+			(&v).Remark = newValue.Remark
+			(&v).Type = newValue.Type
 		}
 	}
 	data = append([]pkg.Response{head}, data...)
