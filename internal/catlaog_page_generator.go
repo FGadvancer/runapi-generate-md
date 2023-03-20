@@ -11,6 +11,14 @@ import (
 )
 
 func GeneratePageByItemID(outPath string, projectName string) {
+	sucessData := []pkg.Response{
+		{Name: "errCode", Type: "int", Remark: "错误码,0表示成功"},
+		{Name: "errMsg", Type: "string", Remark: "错误简要信息,无错误时为空"},
+		{Name: "errDlt", Type: "errDlt", Remark: "错误详细信息,无错误时为空"},
+	}
+	for _, v := range sucessData {
+		successMap[v.Name] = v
+	}
 	var wg sync.WaitGroup
 	dbFileName := "/showdoc_data/html/Sqlite" + "/showdoc.db.php"
 	//dbFileName := "./showdoc.db.php"

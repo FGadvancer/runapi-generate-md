@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+var successMap map[string]pkg.Response = make(map[string]pkg.Response)
+
 func codeAreaWrite(sb *strings.Builder, codeArea string) {
 	sb.WriteString("```json\n" + codeArea +
 		"\n```" + "\n")
@@ -93,8 +95,33 @@ func reqTableWrite(sb *strings.Builder, data []pkg.Header) {
 	}
 }
 
-func respTableWrite(sb *strings.Builder, data []pkg.Response) {
+func successRespTableWrite(sb *strings.Builder, data []pkg.Response) {
 	head := pkg.Response{Type: "类型", Name: "参数名", Remark: "说明"}
+	for _, v := range data {
+		if newValue, ok := successMap[v.Name]; ok {
+			v.Name = newValue.Name
+			v.Remark = newValue.Remark
+			v.Type = newValue.Type
+		}
+	}
+	data = append([]pkg.Response{head}, data...)
+	for i, v := range data {
+		sb.WriteString("|" + v.Name)
+		sb.WriteString("|" + v.Type)
+		sb.WriteString("|" + v.Remark + "|\n")
+		if i == 0 {
+			sb.WriteString("|:----    |:-------    |:--- |\n")
+		}
+	}
+}
+
+func failedRespTableWrite(sb *strings.Builder, _ []pkg.Response) {
+	head := pkg.Response{Type: "类型", Name: "参数名", Remark: "说明"}
+	data := []pkg.Response{
+		{Name: "errCode", Type: "int", Remark: "错误码,具体查看全局错误码文档"},
+		{Name: "errMsg", Type: "string", Remark: "错误简要信息"},
+		{Name: "errDlt", Type: "errDlt", Remark: "错误详细信息"},
+	}
 	data = append([]pkg.Response{head}, data...)
 	for i, v := range data {
 		sb.WriteString("|" + v.Name)
@@ -140,12 +167,12 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	codeAreaWrite(&sb, data.Response.ResponseExample)
 	titleWrite(&sb, "成功返回示例的参数说明\n\n", 4)
 
-	respTableWrite(&sb, data.Response.ResponseParamsDesc)
+	successRespTableWrite(&sb, data.Response.ResponseParamsDesc)
 
 	titleWrite(&sb, "失败返回示例\n\n", 4)
 	codeAreaWrite(&sb, data.Response.ResponseFailExample)
 	titleWrite(&sb, "失败返回示例的参数说明\n\n", 4)
-	respTableWrite(&sb, data.Response.ResponseFailParamsDesc)
+	failedRespTableWrite(&sb, data.Response.ResponseFailParamsDesc)
 
 	err = os.WriteFile(catalogPath+"/"+bigTile+".md", []byte(sb.String()), 0644)
 	//err = ioutil.WriteFile(bigTile+".md", []byte(sb.String()), 0644)
