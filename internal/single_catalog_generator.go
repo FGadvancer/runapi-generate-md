@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var successMap map[string]pkg.Response = make(map[string]pkg.Response)
+var successMap = make(map[string]pkg.Response)
 
 func codeAreaWrite(sb *strings.Builder, codeArea string) {
 	sb.WriteString("```json\n" + codeArea +
@@ -99,6 +99,7 @@ func successRespTableWrite(sb *strings.Builder, data []pkg.Response) {
 	head := pkg.Response{Type: "类型", Name: "参数名", Remark: "说明"}
 	for _, v := range data {
 		if newValue, ok := successMap[v.Name]; ok {
+			fmt.Println("come here", v, newValue)
 			v.Name = newValue.Name
 			v.Remark = newValue.Remark
 			v.Type = newValue.Type
