@@ -73,6 +73,11 @@ func headerTableWrite(sb *strings.Builder, data []pkg.Header) {
 	for i, v := range data {
 		sb.WriteString("|" + v.Name)
 		sb.WriteString("|" + v.Value)
+		if v.Require == "1" {
+			v.Require = "必填"
+		} else {
+			v.Require = "选填"
+		}
 		sb.WriteString("|" + v.Require)
 		sb.WriteString("|" + v.Type)
 		sb.WriteString("|" + v.Remark + "|\n")
@@ -86,6 +91,11 @@ func reqTableWrite(sb *strings.Builder, data []pkg.Header) {
 	data = append([]pkg.Header{head}, data...)
 	for i, v := range data {
 		sb.WriteString("|" + v.Name)
+		if v.Require == "1" {
+			v.Require = "必填"
+		} else {
+			v.Require = "选填"
+		}
 		sb.WriteString("|" + v.Require)
 		sb.WriteString("|" + v.Type)
 		sb.WriteString("|" + v.Remark + "|\n")
