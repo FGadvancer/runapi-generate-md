@@ -18,7 +18,7 @@ BINARY_NAME=${NAME}
 endif
 
 build:
-	CGO_ENABLED=1 GOOS=${OS} GOARCH=${ARCH}; go build -ldflags="-w -s" -o ${BINARY_NAME}
+	CGO_ENABLED=0 GOOS=${OS} GOARCH=${ARCH}; go build -ldflags="-w -s" -o ${BINARY_NAME}
 
 run:
 	@go run ./
