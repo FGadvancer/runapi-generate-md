@@ -31,6 +31,6 @@ func (p *Page) TableName() string {
 
 func (p *Page) TakePages(catId sql.NullInt32, ItemId sql.NullInt32) (pages []*Page, err error) {
 	page := &Page{}
-	err = p.Conn.Model(page).Where("cat_id = ? And item_id = ?", catId, ItemId).Find(&pages).Order("s_number ASC").Error
+	err = p.Conn.Model(page).Where("cat_id = ? And item_id = ? And is_del = 0", catId, ItemId).Find(&pages).Order("s_number ASC").Error
 	return pages, err
 }
