@@ -48,6 +48,10 @@ func GeneratePageByItemID(outPath string, projectName string) {
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
 		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir)
 	}
+	if len(pages) > 0 {
+		fmt.Printf("current dir %s generated file count：%d\n", dir, len(pages))
+
+	}
 	for _, catalog := range catalogs {
 		newCataLog := *catalog
 		fmt.Println(newCataLog.CatName.String, newCataLog.CatId.Int32)
