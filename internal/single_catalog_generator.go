@@ -185,6 +185,6 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	err = os.WriteFile(catalogPath+"/"+bigTile+".md", []byte(sb.String()), 0644)
 	//err = ioutil.WriteFile(bigTile+".md", []byte(sb.String()), 0644)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err, "11111")
 	}
 }
