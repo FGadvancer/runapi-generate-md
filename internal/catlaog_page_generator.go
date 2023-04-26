@@ -44,6 +44,12 @@ func GeneratePageByItemID(outPath string, projectName string) {
 	ni.Int32 = 0
 	ni.Valid = true
 	pages, _ := data.Page.TakePages(ni, item.ItemId)
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			fmt.Printf("mkdir %s failed：%s\n", dir, err)
+			return
+		}
+	}
 	for _, page := range pages {
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
 		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir)
