@@ -1,14 +1,18 @@
 package internal
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/ruapi-generate-md/pkg"
 	"github.com/ruapi-generate-md/pkg/db"
+	"github.com/ruapi-generate-md/pkg/db/model"
 	"os"
 	"strings"
 	"sync"
 )
+
+var data *db.DataBase
 
 func GeneratePageByItemID(outPath string, projectName string) {
 	sucessData := []pkg.Response{
@@ -23,7 +27,7 @@ func GeneratePageByItemID(outPath string, projectName string) {
 	var wg sync.WaitGroup
 	dbFileName := "/showdoc_data/html/Sqlite" + "/showdoc.db.php"
 	//dbFileName := "./showdoc.db.php"
-	data := db.NewDataBase(dbFileName)
+	data = db.NewDataBase(dbFileName)
 	data.Init()
 	dir := outPath + "/" + projectName
 	item, err := data.Item.TakeItem(projectName)
@@ -36,28 +40,60 @@ func GeneratePageByItemID(outPath string, projectName string) {
 	}
 	globalHeader := getGlobalHeader(headerArgs.ContentJsonStr)
 	catalogs, _ := data.Catalog.TakeCatalogs(item.ItemId)
+	var ni sql.NullInt32
+	ni.Int32 = 0
+	ni.Valid = true
+	pages, _ := data.Page.TakePages(ni, item.ItemId)
+	for _, page := range pages {
+		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
+		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir)
+	}
 	for _, catalog := range catalogs {
 		newCataLog := *catalog
 		fmt.Println(newCataLog.CatName.String, newCataLog.CatId.Int32)
 		wg.Add(1)
 		go func() {
-			tempPath := dir + "/" + newCataLog.CatName.String
-			if _, err := os.Stat(tempPath); os.IsNotExist(err) {
-				if err := os.MkdirAll(tempPath, 0755); err != nil {
-					fmt.Printf("创建目录 %s 失败：%s\n", dir, err)
-					return
-				}
-			}
-			pages, _ := data.Page.TakePages(newCataLog.CatId, item.ItemId)
-			for _, page := range pages {
-				//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
-				generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
-			}
+			//tempPath := dir + "/" + newCataLog.CatName.String
+			//if _, err := os.Stat(tempPath); os.IsNotExist(err) {
+			//	if err := os.MkdirAll(tempPath, 0755); err != nil {
+			//		fmt.Printf("创建目录 %s 失败：%s\n", dir, err)
+			//		return
+			//	}
+			//}
+			//pages, _ := data.Page.TakePages(newCataLog.CatId, item.ItemId)
+			//for _, page := range pages {
+			//	//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
+			//	generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
+			//}
+			recursionGen(dir, newCataLog, globalHeader)
 
 			wg.Done()
 		}()
 	}
 	wg.Wait()
+}
+func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Header) {
+	tempPath := dir + "/" + newCataLog.CatName.String
+	if _, err := os.Stat(tempPath); os.IsNotExist(err) {
+		if err := os.MkdirAll(tempPath, 0755); err != nil {
+			fmt.Printf("mkdir %s failed：%s\n", dir, err)
+			return
+		}
+	}
+	pages, _ := data.Page.TakePages(newCataLog.CatId, newCataLog.ItemId)
+	for _, page := range pages {
+		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
+		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
+	}
+	catalogs, _ := data.Catalog.TakeSubCatalogs(newCataLog.ItemId, newCataLog.CatId)
+	if len(catalogs) == 0 {
+		return
+	} else {
+		for _, catalog := range catalogs {
+			recursionGen(tempPath, *catalog, globalHeader)
+		}
+	}
+
 }
 
 func getGlobalHeader(jsonStr string) []pkg.Header {

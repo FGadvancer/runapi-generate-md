@@ -26,6 +26,11 @@ func (c *Catalog) TableName() string {
 
 func (c *Catalog) TakeCatalogs(ItemId sql.NullInt32) (catalogs []*Catalog, err error) {
 	catalog := &Catalog{}
-	err = c.Conn.Model(catalog).Where("item_id = ?", ItemId).Find(&catalogs).Order("s_number ASC").Error
+	err = c.Conn.Model(catalog).Where("item_id = ? And parent_cat_id = 0", ItemId).Find(&catalogs).Order("s_number ASC").Error
+	return catalogs, err
+}
+func (c *Catalog) TakeSubCatalogs(ItemId sql.NullInt32, cataId sql.NullInt32) (catalogs []*Catalog, err error) {
+	catalog := &Catalog{}
+	err = c.Conn.Model(catalog).Where("item_id = ? And parent_cat_id = ?", ItemId, cataId).Find(&catalogs).Order("s_number ASC").Error
 	return catalogs, err
 }
