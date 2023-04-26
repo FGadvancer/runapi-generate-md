@@ -35,29 +35,25 @@ func GeneratePageByItemID(outPath string, projectName string) {
 	ni.Int32 = 0
 	ni.Valid = true
 	pages, _ := data.Page.TakePages(ni, item.ItemId)
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			fmt.Printf("mkdir %s failed：%s\n", dir, err)
+			return
+		}
+	}
 	for _, page := range pages {
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
 		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir)
 	}
+	if len(pages) > 0 {
+		fmt.Printf("current dir %s generated file count：%d\n", dir, len(pages))
+
+	}
 	for _, catalog := range catalogs {
 		newCataLog := *catalog
-		fmt.Println(newCataLog.CatName.String, newCataLog.CatId.Int32)
 		wg.Add(1)
 		go func() {
-			//tempPath := dir + "/" + newCataLog.CatName.String
-			//if _, err := os.Stat(tempPath); os.IsNotExist(err) {
-			//	if err := os.MkdirAll(tempPath, 0755); err != nil {
-			//		fmt.Printf("mkdir %s failed：%s\n", dir, err)
-			//		return
-			//	}
-			//}
-			//pages, _ := data.Page.TakePages(newCataLog.CatId, item.ItemId)
-			//for _, page := range pages {
-			//	//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
-			//	generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
-			//}
 			recursionGen(dir, newCataLog, globalHeader)
-
 			wg.Done()
 		}()
 	}
@@ -73,8 +69,10 @@ func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Heade
 	}
 	pages, _ := data.Page.TakePages(newCataLog.CatId, newCataLog.ItemId)
 	for _, page := range pages {
-		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
 		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
+	}
+	if len(pages) > 0 {
+		fmt.Printf("current dir %s generated file count：%d\n", tempPath, len(pages))
 	}
 	catalogs, _ := data.Catalog.TakeSubCatalogs(newCataLog.ItemId, newCataLog.CatId)
 	if len(catalogs) == 0 {
