@@ -85,6 +85,10 @@ func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Heade
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
 		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
 	}
+	if len(pages) > 0 {
+		fmt.Printf("current dir %s generated file count：%d\n", tempPath, len(pages))
+
+	}
 	catalogs, _ := data.Catalog.TakeSubCatalogs(newCataLog.ItemId, newCataLog.CatId)
 	if len(catalogs) == 0 {
 		return
