@@ -31,6 +31,6 @@ func (i *Item) TableName() string {
 
 func (i *Item) TakeItem(ItemName string) (*Item, error) {
 	item := &Item{}
-	err := i.conn.Model(item).Where("item_name = ?", ItemName).Take(&item).Error
+	err := i.conn.Model(item).Where("item_name = ? and item_type!=1", ItemName).Take(&item).Error
 	return item, err
 }
