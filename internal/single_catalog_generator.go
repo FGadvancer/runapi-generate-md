@@ -183,8 +183,7 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	codeAreaWrite(&sb, data.Response.ResponseFailExample)
 	titleWrite(&sb, "失败返回示例的参数说明\n\n", 4)
 	failedRespTableWrite(&sb, data.Response.ResponseFailParamsDesc)
-	filePath := filepath.Join(catalogPath, bigTile+".md")
-	filePath = filepath.Clean(filePath)
+	filePath := filepath.Join(catalogPath, strings.ReplaceAll(bigTile, "\"", "&")+".md")
 	err = os.WriteFile(filePath, []byte(sb.String()), 0644)
 	//err = ioutil.WriteFile(bigTile+".md", []byte(sb.String()), 0644)
 	if err != nil {
