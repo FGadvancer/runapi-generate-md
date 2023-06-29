@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/ruapi-generate-md/pkg"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -182,8 +183,8 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	codeAreaWrite(&sb, data.Response.ResponseFailExample)
 	titleWrite(&sb, "失败返回示例的参数说明\n\n", 4)
 	failedRespTableWrite(&sb, data.Response.ResponseFailParamsDesc)
-
-	err = os.WriteFile(catalogPath+"/"+bigTile+".md", []byte(sb.String()), 0644)
+	filePath := filepath.Join(catalogPath, bigTile+".md")
+	err = os.WriteFile(filePath, []byte(sb.String()), 0644)
 	//err = ioutil.WriteFile(bigTile+".md", []byte(sb.String()), 0644)
 	if err != nil {
 		fmt.Println("WriteFile err", err, "catlogPath", catalogPath, "bigTile", bigTile)
