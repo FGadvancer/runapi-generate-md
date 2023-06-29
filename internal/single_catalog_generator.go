@@ -86,9 +86,9 @@ func headerTableWrite(sb *strings.Builder, data []pkg.Header) {
 		}
 	}
 }
-func reqTableWrite(sb *strings.Builder, data []pkg.Header) {
-	head := pkg.Header{Type: "类型", Name: "字段名", Value: "示例值", Require: "必选", Remark: "说明"}
-	data = append([]pkg.Header{head}, data...)
+func reqTableWrite(sb *strings.Builder, data []pkg.RequestHeader) {
+	head := pkg.RequestHeader{Type: "类型", Name: "字段名", Require: "必选", Remark: "说明"}
+	data = append([]pkg.RequestHeader{head}, data...)
 	for i, v := range data {
 		sb.WriteString("|" + v.Name)
 		if v.Require == "1" {
