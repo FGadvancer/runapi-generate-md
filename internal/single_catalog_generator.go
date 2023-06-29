@@ -148,6 +148,7 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	data := pkg.PageContent{}
 	err := json.Unmarshal([]byte(jsonStr), &data)
 	if err != nil {
+		fmt.Println("Unmarshal err", err, "catlogPath", catalogPath, "bigTile", bigTile)
 		panic(err)
 	}
 	var sb strings.Builder
