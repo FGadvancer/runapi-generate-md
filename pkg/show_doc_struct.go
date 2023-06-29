@@ -29,8 +29,8 @@ type PageContent struct {
 				Require string `json:"require"`
 				Remark  string `json:"remark"`
 			} `json:"formdata"`
-			JSON     string   `json:"json"`
-			JSONDesc []Header `json:"jsonDesc"`
+			JSON     string          `json:"json"`
+			JSONDesc []RequestHeader `json:"jsonDesc"`
 		} `json:"params"`
 		Headers []Header `json:"headers"`
 		Cookies []struct {
@@ -75,6 +75,12 @@ type Header struct {
 	Name    string `json:"name"`
 	Type    string `json:"type"`
 	Value   string `json:"value"`
+	Require string `json:"require"`
+	Remark  string `json:"remark"`
+}
+type RequestHeader struct {
+	Name    string `json:"name"`
+	Type    string `json:"type"`
 	Require string `json:"require"`
 	Remark  string `json:"remark"`
 }
