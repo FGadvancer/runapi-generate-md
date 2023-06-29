@@ -14,7 +14,7 @@ import (
 
 var data *db.DataBase
 
-func GeneratePageByItemID(outPath string, projectName string) {
+func GeneratePageByItemID(outPath string, projectName string, x bool) {
 	sucessData := []pkg.Response{
 		{Name: "errCode", Type: "int", Remark: "错误码,0表示成功"},
 		{Name: "errMsg", Type: "string", Remark: "错误简要信息,无错误时为空"},
@@ -52,7 +52,7 @@ func GeneratePageByItemID(outPath string, projectName string) {
 	}
 	for _, page := range pages {
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
-		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir)
+		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir, x)
 	}
 	if len(pages) > 0 {
 		fmt.Printf("current dir %s generated file count：%d\n", dir, len(pages))
@@ -75,14 +75,14 @@ func GeneratePageByItemID(outPath string, projectName string) {
 			//	//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
 			//	generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
 			//}
-			recursionGen(dir, newCataLog, globalHeader)
+			recursionGen(dir, newCataLog, globalHeader, x)
 
 			wg.Done()
 		}()
 	}
 	wg.Wait()
 }
-func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Header) {
+func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Header, x bool) {
 	tempPath := dir + "/" + newCataLog.CatName.String
 	if _, err := os.Stat(tempPath); os.IsNotExist(err) {
 		if err := os.MkdirAll(tempPath, 0755); err != nil {
@@ -93,7 +93,7 @@ func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Heade
 	pages, _ := data.Page.TakePages(newCataLog.CatId, newCataLog.ItemId)
 	for _, page := range pages {
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
-		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath)
+		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath, x)
 	}
 	if len(pages) > 0 {
 		fmt.Printf("current dir %s generated file count：%d\n", tempPath, len(pages))
@@ -104,7 +104,7 @@ func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Heade
 		return
 	} else {
 		for _, catalog := range catalogs {
-			recursionGen(tempPath, *catalog, globalHeader)
+			recursionGen(tempPath, *catalog, globalHeader, x)
 		}
 	}
 

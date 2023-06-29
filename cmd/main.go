@@ -22,7 +22,11 @@ func main() {
 
 	//fmt.Printf("当前代码执行目录的上一级目录为：%s\n", parentDir)
 	projectName := flag.String("p", "ServerAPI", "api project name")
+
+	var xFlag bool
+	flag.BoolVar(&xFlag, "x", false, "Whether to use the -x flag")
+
 	flag.Parse()
-	internal.GeneratePageByItemID("..", *projectName)
-	fmt.Println("generate end cost time ", time.Since(t))
+	internal.GeneratePageByItemID("..", *projectName, xFlag)
+	fmt.Println("generate end cost time ", time.Since(t), "bool flag", xFlag)
 }
