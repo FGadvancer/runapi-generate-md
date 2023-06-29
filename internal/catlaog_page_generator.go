@@ -60,7 +60,7 @@ func GeneratePageByItemID(outPath string, projectName string) {
 	}
 	for _, catalog := range catalogs {
 		newCataLog := *catalog
-		//fmt.Println(newCataLog.CatName.String, newCataLog.CatId.Int32)
+		fmt.Println(newCataLog.CatName.String, newCataLog.CatId.Int32)
 		wg.Add(1)
 		go func() {
 			//tempPath := dir + "/" + newCataLog.CatName.String
