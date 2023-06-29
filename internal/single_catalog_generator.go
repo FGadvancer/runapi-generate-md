@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/ruapi-generate-md/pkg"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -72,6 +71,9 @@ func headerTableWrite(sb *strings.Builder, data []pkg.Header) {
 	head := pkg.Header{Type: "类型", Name: "header名", Value: "示例值", Require: "必选", Remark: "说明"}
 	data = append([]pkg.Header{head}, data...)
 	for i, v := range data {
+		if v.Name == "" {
+			continue
+		}
 		sb.WriteString("|" + v.Name)
 		sb.WriteString("|" + v.Value)
 		if v.Require == "1" {
@@ -158,33 +160,32 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 		"th {\n    background-color: #1E90FF; /* 设置表头背景颜色 */\n}\n.highlight {\n    background-color: black;\n    color: white;\n    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n}\n</style>" + "\n\n")
 	pageBigTitleWrite(&sb, bigTile, 2)
 	//fmt.Println("1", data.Request.Params.JSON, data.Request.Headers)
-	titleWrite(&sb, "简要描述", 4)
+	titleWrite(&sb, "简要描述", 3)
 	valueCircleWrite(&sb, data.Info.Description, "无")
 	funcStatus(&sb, data.Info.APIStatus)
-	titleWrite(&sb, "请求URL", 4)
+	titleWrite(&sb, "请求URL", 3)
 	valueURLWrite(&sb, data.Info.Method, "无")
 
-	titleWrite(&sb, "请求方式", 4)
+	titleWrite(&sb, "请求方式", 3)
 	valueURLWrite(&sb, data.Info.URL, "无")
 	sb.WriteString("\n\n")
-	titleWrite(&sb, "Header", 4)
+	titleWrite(&sb, "Header", 3)
 	headerTableWrite(&sb, append(globalHeader, data.Request.Headers...))
 	sb.WriteString("\n\n")
-	titleWrite(&sb, "请求参数示例\n\n", 4)
+	titleWrite(&sb, "请求参数示例\n\n", 3)
 	codeAreaWrite(&sb, data.Request.Params.JSON)
 	reqTableWrite(&sb, data.Request.Params.JSONDesc)
-	titleWrite(&sb, "成功返回示例\n\n", 4)
+	titleWrite(&sb, "成功返回示例\n\n", 3)
 	codeAreaWrite(&sb, data.Response.ResponseExample)
-	titleWrite(&sb, "成功返回示例的参数说明\n\n", 4)
+	titleWrite(&sb, "成功返回示例的参数说明\n\n", 3)
 
 	successRespTableWrite(&sb, data.Response.ResponseParamsDesc)
 
-	titleWrite(&sb, "失败返回示例\n\n", 4)
+	titleWrite(&sb, "失败返回示例\n\n", 3)
 	codeAreaWrite(&sb, data.Response.ResponseFailExample)
-	titleWrite(&sb, "失败返回示例的参数说明\n\n", 4)
+	titleWrite(&sb, "失败返回示例的参数说明\n\n", 3)
 	failedRespTableWrite(&sb, data.Response.ResponseFailParamsDesc)
-	filePath := filepath.Join(catalogPath, strings.ReplaceAll(bigTile, "\"", "与")+".md")
-	err = os.WriteFile(filePath, []byte(sb.String()), 0644)
+	err = os.WriteFile(catalogPath+"/"+bigTile+".md", []byte(sb.String()), 0644)
 	//err = ioutil.WriteFile(bigTile+".md", []byte(sb.String()), 0644)
 	if err != nil {
 		fmt.Println("WriteFile err", err, "catlogPath", catalogPath, "bigTile", bigTile)
