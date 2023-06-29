@@ -21,7 +21,12 @@ fi
         exit -1
         else
     cd   $bin_dir
-   ./runapi_generator -p $1
+    if [ "$2" = "x" ]; then
+        # If the second argument is "x", pass -x to runapi_generator
+        ./runapi_generator -p $1 -x
+    else
+        ./runapi_generator -p $1
+    fi
    cd ..
    zip  $1.zip $1/* -r
   fi
