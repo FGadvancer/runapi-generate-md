@@ -165,10 +165,10 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	titleWrite(&sb, "简要描述", 3)
 	valueCircleWrite(&sb, data.Info.Description, "无")
 	funcStatus(&sb, data.Info.APIStatus)
-	titleWrite(&sb, "请求URL", 3)
+	titleWrite(&sb, "请求方式", 3)
 	valueURLWrite(&sb, data.Info.Method, "无")
 
-	titleWrite(&sb, "请求方式", 3)
+	titleWrite(&sb, "请求URL", 3)
 	valueURLWrite(&sb, data.Info.URL, "无")
 	sb.WriteString("\n\n")
 	titleWrite(&sb, "Header", 3)
