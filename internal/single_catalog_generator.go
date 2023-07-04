@@ -175,7 +175,7 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 			"<style>\n" +
 			"th {\n    background-color: #1E90FF; /* 设置表头背景颜色 */\n}\n.highlight {\n    background-color: black;\n    color: white;\n    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;\n}\n</style>" + "\n\n")
 	}
-	sb.WriteString("---\ntitle: " + bigTile + "\nhide_title: true\n---\n\n")
+	sb.WriteString("---\ntitle: " + bigTile + "\nhide_title: true\n---\n")
 	pageBigTitleWrite(&sb, bigTile, 2)
 	//fmt.Println("1", data.Request.Params.JSON, data.Request.Headers)
 	titleWrite(&sb, "简要描述", 3)
