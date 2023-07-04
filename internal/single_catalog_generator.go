@@ -161,6 +161,7 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	//fmt.Println("11111", jsonStr)
 	if _, ok := constant.Exclude[bigTile]; ok {
 		fmt.Println("exclude:", bigTile)
+		return
 	}
 	data := pkg.PageContent{}
 	err := json.Unmarshal([]byte(jsonStr), &data)
