@@ -68,11 +68,11 @@ func valueURLWrite(sb *strings.Builder, value, defalut string) {
 	}
 	sb.WriteString("- " + "`" + value + "`" + " \n")
 }
-func headerTableWrite(sb *strings.Builder, data []pkg.Header) {
+func headerTableWrite(sb *strings.Builder, data []pkg.Header, isNeedToken bool) {
 	head := pkg.Header{Type: "类型", Name: "header名", Value: "示例值", Require: "必选", Remark: "说明"}
 	data = append([]pkg.Header{head}, data...)
 	for i, v := range data {
-		if v.Name == "" {
+		if v.Name == "" || (v.Name == "token" && !isNeedToken) {
 			continue
 		}
 		sb.WriteString("|" + v.Name)
@@ -144,17 +144,18 @@ func failedRespTableWrite(sb *strings.Builder, _ []pkg.Response) {
 		}
 	}
 }
-func IsContain(target string, List []string) bool {
 
-	for _, element := range List {
-
-		if target == element {
-			return true
-		}
-	}
-	return false
-
-}
+// func IsContain(target string, List []string) bool {
+//
+//	for _, element := range List {
+//
+//		if target == element {
+//			return true
+//		}
+//	}
+//	return false
+//
+// }
 func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile string, catalogPath string, x bool) {
 	//jsonStr := "{&quot;info&quot;:{&quot;from&quot;:&quot;runapi&quot;,&quot;type&quot;:&quot;api&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;获取用户token&quot;,&quot;method&quot;:&quot;post&quot;,&quot;url&quot;:&quot;{{host}}/auth/user_token&quot;,&quot;remark&quot;:&quot;&quot;,&quot;apiStatus&quot;:&quot;3&quot;},&quot;request&quot;:{&quot;params&quot;:{&quot;mode&quot;:&quot;json&quot;,&quot;urlencoded&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;&quot;,&quot;require&quot;:&quot;1&quot;,&quot;remark&quot;:&quot;&quot;}],&quot;formdata&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;&quot;,&quot;require&quot;:&quot;1&quot;,&quot;remark&quot;:&quot;&quot;}],&quot;json&quot;:&quot;{\\n  \\&quot;userID\\&quot;: \\&quot;635204331\\&quot;,\\n  \\&quot;platformID\\&quot;: 1,\\n  \\&quot;secret\\&quot;:\\&quot;openIM123\\&quot;\\n}&quot;,&quot;jsonDesc&quot;:[{&quot;name&quot;:&quot;userID&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;require&quot;:&quot;1&quot;},{&quot;name&quot;:&quot;platformID&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;require&quot;:&quot;1&quot;},{&quot;name&quot;:&quot;secret&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;require&quot;:&quot;1&quot;}]},&quot;headers&quot;:[{&quot;name&quot;:&quot;operationID&quot;,&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;123123123&quot;,&quot;require&quot;:&quot;1&quot;,&quot;remark&quot;:&quot;operationID用于全局链路追踪&quot;}],&quot;cookies&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;}],&quot;auth&quot;:[],&quot;query&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;&quot;,&quot;require&quot;:&quot;1&quot;,&quot;remark&quot;:&quot;&quot;}],&quot;pathVariable&quot;:[]},&quot;response&quot;:{&quot;responseText&quot;:&quot;{\\n  \\&quot;errCode\\&quot;: 0,\\n  \\&quot;errMsg\\&quot;: \\&quot;\\&quot;,\\n  \\&quot;errDlt\\&quot;: \\&quot;\\&quot;,\\n  \\&quot;data\\&quot;: {\\n    \\&quot;token\\&quot;: \\&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVSUQiOiI2MzUyMDQzMzEiLCJQbGF0Zm9ybSI6IklPUyIsImV4cCI6MTY4NjU2MTkxMSwibmJmIjoxNjc4Nzg1NjExLCJpYXQiOjE2Nzg3ODU5MTF9.uRSAZE_Z-FlBFjzuLp4Usy2utT-BQLR1eIzeaS9nCJk\\&quot;,\\n    \\&quot;expireTimeSeconds\\&quot;: 90\\n  }\\n}&quot;,&quot;responseOriginal&quot;:{&quot;errCode&quot;:0,&quot;errMsg&quot;:&quot;&quot;,&quot;errDlt&quot;:&quot;&quot;,&quot;data&quot;:{&quot;token&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVSUQiOiI2MzUyMDQzMzEiLCJQbGF0Zm9ybSI6IklPUyIsImV4cCI6MTY4NjU2MTkxMSwibmJmIjoxNjc4Nzg1NjExLCJpYXQiOjE2Nzg3ODU5MTF9.uRSAZE_Z-FlBFjzuLp4Usy2utT-BQLR1eIzeaS9nCJk&quot;,&quot;expireTimeSeconds&quot;:90}},&quot;responseExample&quot;:&quot;{\\n  \\&quot;errCode\\&quot;: 0,\\n  \\&quot;errMsg\\&quot;: \\&quot;\\&quot;,\\n  \\&quot;errDlt\\&quot;: \\&quot;\\&quot;,\\n  \\&quot;data\\&quot;: {\\n    \\&quot;token\\&quot;: \\&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVSUQiOiI2MzUyMDQzMzEiLCJQbGF0Zm9ybSI6IklPUyIsImV4cCI6MTY4NjU2MTI2OCwibmJmIjoxNjc4Nzg0OTY4LCJpYXQiOjE2Nzg3ODUyNjh9.bypHmiNJtIcpxxCOcA-cWNe0ymyp4-Sa80pmtpF5G0s\\&quot;,\\n    \\&quot;expireTimeSeconds\\&quot;: 90\\n  }\\n}&quot;,&quot;responseHeader&quot;:{&quot;access-control-allow-credentials&quot;:&quot;false&quot;,&quot;access-control-allow-headers&quot;:&quot;*&quot;,&quot;access-control-allow-methods&quot;:&quot;*&quot;,&quot;access-control-allow-origin&quot;:&quot;*&quot;,&quot;access-control-expose-headers&quot;:&quot;Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,Cache-Control,Content-Language,Content-Type,Expires,Last-Modified,Pragma,FooBar&quot;,&quot;access-control-max-age&quot;:&quot;172800&quot;,&quot;content-length&quot;:&quot;277&quot;,&quot;content-type&quot;:&quot;application/json&quot;,&quot;cookie-from-server&quot;:&quot;&quot;,&quot;date&quot;:&quot;Tue, 14 Mar 2023 09:25:11 GMT&quot;},&quot;responseStatus&quot;:200,&quot;responseTime&quot;:162,&quot;responseParamsDesc&quot;:[{&quot;name&quot;:&quot;errCode&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;errMsg&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;errDlt&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;object&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;token&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;expireTimeSeconds&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;}],&quot;responseFailExample&quot;:&quot;{\\n  \\&quot;errCode\\&quot;: 10000,\\n  \\&quot;errMsg\\&quot;: \\&quot;: [12]unknown service OpenIMServer.pbAuth.Auth\\&quot;,\\n  \\&quot;errDlt\\&quot;: \\&quot;\\&quot;,\\n  \\&quot;data\\&quot;: null\\n}&quot;,&quot;responseFailParamsDesc&quot;:[{&quot;name&quot;:&quot;errCode&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;errMsg&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;errDlt&quot;,&quot;type&quot;:&quot;string&quot;,&quot;remark&quot;:&quot;&quot;},{&quot;name&quot;:&quot;data&quot;,&quot;type&quot;:&quot;object&quot;,&quot;remark&quot;:&quot;&quot;}],&quot;remark&quot;:&quot;&quot;,&quot;responseSize&quot;:0},&quot;scripts&quot;:{&quot;pre&quot;:&quot;&quot;,&quot;post&quot;:&quot;&quot;},&quot;extend&quot;:{}}"
 	jsonStr = strings.ReplaceAll(jsonStr, "&quot;", "\"")
@@ -188,7 +189,13 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	valueURLWrite(&sb, data.Info.URL, "无")
 	sb.WriteString("\n\n")
 	titleWrite(&sb, "Header", 3)
-	headerTableWrite(&sb, append(globalHeader, data.Request.Headers...))
+	isNeedToken := true
+	for _, header := range data.Request.Headers {
+		if header.Name == "without-token" {
+			isNeedToken = false
+		}
+	}
+	headerTableWrite(&sb, append(globalHeader, data.Request.Headers...), isNeedToken)
 	sb.WriteString("\n\n")
 	titleWrite(&sb, "请求参数示例\n\n", 3)
 	codeAreaWrite(&sb, data.Request.Params.JSON)
