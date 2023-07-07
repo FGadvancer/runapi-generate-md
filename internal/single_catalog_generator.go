@@ -111,12 +111,25 @@ func reqTableWrite(sb *strings.Builder, data []pkg.RequestHeader) {
 
 func successRespTableWrite(sb *strings.Builder, data []pkg.Response) {
 	head := pkg.Response{Type: "类型", Name: "参数名", Remark: "说明"}
+	isAdd := false
 	for i, v := range data {
 		if newValue, ok := successMap[v.Name]; ok {
+			isAdd = true
 			data[i] = newValue
 		}
 	}
-	data = append([]pkg.Response{head}, data...)
+	success := func(s map[string]pkg.Response) (r []pkg.Response) {
+		for _, v := range s {
+			r = append(r, v)
+		}
+		return r
+	}(successMap)
+	var temp []pkg.Response
+	if !isAdd {
+		temp = append(temp, success...)
+	}
+	temp = append([]pkg.Response{head}, temp...)
+	data = append(temp, data...)
 	for i, v := range data {
 		sb.WriteString("|" + v.Name)
 		sb.WriteString("|" + v.Type)
