@@ -36,7 +36,7 @@ var FileName = map[string]string{
 	"好友申请处理":         "processApplication",
 	"获取主动发出去的好友申请列表": "getSentApplication",
 
-	"多个用户对同一会话设置字段": "setConversations	",
+	"多个用户对同一会话设置字段": "setConversations",
 
 	"创建群组":     "createGroup",
 	"邀请用户进群":   "inviteUserToGroup",
