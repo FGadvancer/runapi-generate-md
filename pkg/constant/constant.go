@@ -20,6 +20,7 @@ var FileName = map[string]string{
 	"查询用户是否注册":    "checkUserRegistered",
 	"分页获取所有用户ID":  "getAllUserID",
 	"获取用户在线状态":    "getUserOnlineStatus",
+	"获取在线用户状态详情":  "getUserOnlineStatusDetail",
 	"统计用户注册":      "statisticsUserRegister",
 
 	"判断是否是好友":        "checkFriend",
@@ -37,13 +38,13 @@ var FileName = map[string]string{
 
 	"多个用户对同一会话设置字段": "setConversations	",
 
-	"创建群":      "createGroup",
+	"创建群组":     "createGroup",
 	"邀请用户进群":   "inviteUserToGroup",
 	"用户加入群":    "joinGroup",
 	"用户退出群":    "quitGroup",
 	"转让群组":     "transferGroup",
 	"获取群组信息":   "getGroupsInfo",
-	"将用户踢出群":   "kickGroup",
+	"将用户踢出群组":  "kickGroup",
 	"获取群成员":    "getGroupMembersInfo",
 	"获取群成员列表":  "getGroupMemberList",
 	"获取用户加群列表": "getJoinedGroupList",
@@ -57,6 +58,8 @@ var FileName = map[string]string{
 	"（以管理员或群主身份）获取群的加群申请": "getRecvGroupApplicationList",
 	"群主或管理员处理进群申请":        "groupApplicationResponse",
 	"获取用户自己的主动加群申请":       "getUserReqGroupApplicationList",
+
+	"强制下线": "forceLogout",
 }
 var Exclude = map[string]struct{}{
 	"获取最新seq":                   {},
