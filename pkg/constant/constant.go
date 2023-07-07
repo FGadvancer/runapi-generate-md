@@ -76,4 +76,5 @@ var Exclude = map[string]struct{}{
 	"设置会话免打扰":                                  {},
 	"调整会话字段":                                    {},
 	"获取群成员哈希":                                  {},
+	"OpenIM字段说明":                                  {},
 }
