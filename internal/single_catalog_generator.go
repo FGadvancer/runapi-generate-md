@@ -149,6 +149,9 @@ func failedRespTableWrite(sb *strings.Builder, _ []pkg.Response) {
 	}
 	data = append([]pkg.Response{head}, data...)
 	for i, v := range data {
+		if v.Name == "" {
+			continue
+		}
 		sb.WriteString("|" + v.Name)
 		sb.WriteString("|" + v.Type)
 		sb.WriteString("|" + v.Remark + "|\n")
