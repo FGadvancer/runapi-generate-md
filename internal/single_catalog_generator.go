@@ -190,12 +190,15 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	sb.WriteString("\n\n")
 	titleWrite(&sb, "Header", 3)
 	isNeedToken := true
+	var newHeader []pkg.Header
 	for _, header := range data.Request.Headers {
 		if header.Name == "without-token" {
 			isNeedToken = false
+		} else {
+			newHeader = append(newHeader, header)
 		}
 	}
-	headerTableWrite(&sb, append(globalHeader, data.Request.Headers...), isNeedToken)
+	headerTableWrite(&sb, append(globalHeader, newHeader...), isNeedToken)
 	sb.WriteString("\n\n")
 	titleWrite(&sb, "请求参数示例\n\n", 3)
 	codeAreaWrite(&sb, data.Request.Params.JSON)
