@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ruapi-generate-md/pkg"
+	"github.com/ruapi-generate-md/pkg/tools"
 	"os"
 	"strings"
 )
@@ -65,12 +66,13 @@ func valueURLWrite(sb *strings.Builder, value, defalut string) {
 	}
 	sb.WriteString("- " + "`" + value + "`" + " \n")
 }
+
 func headerTableWrite(sb *strings.Builder, data []pkg.Header) {
 	head := pkg.Header{Type: "类型", Name: "header名", Value: "示例值", Require: "必选", Remark: "说明"}
 	data = append([]pkg.Header{head}, data...)
 	for i, v := range data {
 		sb.WriteString("|" + v.Name)
-		sb.WriteString("|" + v.Value)
+		sb.WriteString("|" + tools.ConvertToString(v.Value))
 		sb.WriteString("|" + v.Require)
 		sb.WriteString("|" + v.Type)
 		sb.WriteString("|" + v.Remark + "|\n")
