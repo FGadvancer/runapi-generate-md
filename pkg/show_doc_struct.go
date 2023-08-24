@@ -72,11 +72,11 @@ type PageContent struct {
 	} `json:"extend"`
 }
 type Header struct {
-	Name    string `json:"name"`
-	Type    string `json:"type"`
-	Value   string `json:"value"`
-	Require string `json:"require"`
-	Remark  string `json:"remark"`
+	Name    string      `json:"name"`
+	Type    string      `json:"type"`
+	Value   interface{} `json:"value"`
+	Require string      `json:"require"`
+	Remark  string      `json:"remark"`
 }
 type Response struct {
 	Name   string `json:"name"`
