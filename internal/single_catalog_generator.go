@@ -75,6 +75,11 @@ func headerTableWrite(sb *strings.Builder, data []pkg.Header, isNeedToken bool) 
 		if v.Name == "" || (v.Name == "token" && !isNeedToken) {
 			continue
 		}
+		if v.Name == "token" {
+			v.Value = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU02NTQzMjEiLCJQbG" +
+				"F0Zm9ybUlEIjowLCJleHAiOjE2OTY0OTE4NTAsIm5iZiI6MTY4ODcxNTU1MCwiaWF0IjoxNjg4NzE1ODUwfQ." +
+				"Mfhg3OiRtJY48rZbKWecNeydnHWW-GK3R2x0z8I-3Xs"
+		}
 		sb.WriteString("|" + v.Name)
 		sb.WriteString("|" + v.Value)
 		if v.Require == "1" {
@@ -202,7 +207,7 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	valueURLWrite(&sb, data.Info.Method, "无")
 
 	titleWrite(&sb, "请求URL", 3)
-	valueURLWrite(&sb, data.Info.URL, "无")
+	valueURLWrite(&sb, replaceHost(data.Info.URL, "http://x.x.x.x:10002"), "无")
 	sb.WriteString("\n\n")
 	titleWrite(&sb, "Header", 3)
 	isNeedToken := true
@@ -241,4 +246,8 @@ func tileChanged(bigTile string) string {
 	} else {
 		return bigTile
 	}
+}
+
+func replaceHost(input string, newHost string) string {
+	return strings.Replace(input, "{{host}}", newHost, 1)
 }
