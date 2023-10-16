@@ -123,15 +123,9 @@ func successRespTableWrite(sb *strings.Builder, data []pkg.Response) {
 			data[i] = newValue
 		}
 	}
-	success := func(s map[string]pkg.Response) (r []pkg.Response) {
-		for _, v := range s {
-			r = append(r, v)
-		}
-		return r
-	}(successMap)
 	var temp []pkg.Response
 	if !isAdd {
-		temp = append(temp, success...)
+		temp = append(temp, sucessData...)
 	}
 	temp = append([]pkg.Response{head}, temp...)
 	data = append(temp, data...)
