@@ -54,7 +54,7 @@ func GeneratePageByItemID(outPath string, projectName string, x bool) {
 	}
 	for _, page := range pages {
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
-		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir, x)
+		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir, x, page.SNumber)
 	}
 	if len(pages) > 0 {
 		fmt.Printf("current dir %s generated file count：%d\n", dir, len(pages))
@@ -95,7 +95,7 @@ func recursionGen(dir string, newCataLog model.Catalog, globalHeader []pkg.Heade
 	pages, _ := data.Page.TakePages(newCataLog.CatId, newCataLog.ItemId)
 	for _, page := range pages {
 		//fmt.Print(i, page.PageContent.String, globalHeader, page.PageTitle.String)
-		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath, x)
+		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, tempPath, x, page.SNumber)
 	}
 	if len(pages) > 0 {
 		fmt.Printf("current dir %s generated file count：%d\n", tempPath, len(pages))
