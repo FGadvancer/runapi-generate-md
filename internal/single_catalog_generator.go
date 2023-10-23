@@ -17,6 +17,7 @@ func codeAreaWrite(sb *strings.Builder, codeArea string) {
 		"\n```" + "\n")
 }
 func funcStatus(sb *strings.Builder, status string) {
+	return
 	if status == "0" {
 		return
 	}
