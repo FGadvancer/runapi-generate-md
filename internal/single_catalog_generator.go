@@ -13,8 +13,7 @@ import (
 var successMap = make(map[string]pkg.Response)
 
 func codeAreaWrite(sb *strings.Builder, codeArea string) {
-	defaultCodeArea := "{\n  \"errCode\": 1004,\n  \"errMsg\": \"RecordNotFoundError\",\n  \"errDlt\": \": [1004]RecordNotFoundError\"\n}"
-	sb.WriteString("```json\n" + defaultCodeArea +
+	sb.WriteString("```json\n" + codeArea +
 		"\n```" + "\n")
 }
 func funcStatus(sb *strings.Builder, status string) {
@@ -226,7 +225,9 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	successRespTableWrite(&sb, data.Response.ResponseParamsDesc)
 
 	titleWrite(&sb, "失败返回示例\n\n", 3)
-	codeAreaWrite(&sb, data.Response.ResponseFailExample)
+	defaultCodeArea := "{\n  \"errCode\": 1004,\n  \"errMsg\": \"RecordNotFoundError\",\n  \"errDlt\": \": [1004]RecordNotFoundError\"\n}"
+
+	codeAreaWrite(&sb, defaultCodeArea)
 	titleWrite(&sb, "失败返回示例的参数说明\n\n", 3)
 	failedRespTableWrite(&sb, data.Response.ResponseFailParamsDesc)
 	err = os.WriteFile(catalogPath+"/"+tileChanged(bigTile)+".mdx", []byte(sb.String()), 0644)
