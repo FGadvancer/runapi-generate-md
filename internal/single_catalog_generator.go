@@ -77,9 +77,7 @@ func headerTableWrite(sb *strings.Builder, data []pkg.Header, isNeedToken bool) 
 			continue
 		}
 		if v.Name == "token" {
-			v.Value = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJvcGVuSU02NTQzMjEiLCJQbG" +
-				"F0Zm9ybUlEIjowLCJleHAiOjE2OTY0OTE4NTAsIm5iZiI6MTY4ODcxNTU1MCwiaWF0IjoxNjg4NzE1ODUwfQ." +
-				"Mfhg3OiRtJY48rZbKWecNeydnHWW-GK3R2x0z8I-3Xs"
+			v.Value = "eyJhbxxxx3Xs"
 		}
 		sb.WriteString("|" + v.Name)
 		sb.WriteString("|" + v.Value)
