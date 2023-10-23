@@ -13,7 +13,8 @@ import (
 var successMap = make(map[string]pkg.Response)
 
 func codeAreaWrite(sb *strings.Builder, codeArea string) {
-	sb.WriteString("```json\n" + codeArea +
+	defaultCodeArea := "{\n  \"errCode\": 1004,\n  \"errMsg\": \"RecordNotFoundError\",\n  \"errDlt\": \": [1004]RecordNotFoundError\"\n}"
+	sb.WriteString("```json\n" + defaultCodeArea +
 		"\n```" + "\n")
 }
 func funcStatus(sb *strings.Builder, status string) {
