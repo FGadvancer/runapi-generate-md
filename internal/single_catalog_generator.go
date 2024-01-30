@@ -3,10 +3,11 @@ package internal
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/ruapi-generate-md/pkg"
-	"github.com/ruapi-generate-md/pkg/tools"
 	"os"
 	"strings"
+
+	"github.com/ruapi-generate-md/pkg"
+	"github.com/ruapi-generate-md/pkg/tools"
 )
 
 func codeAreaWrite(sb *strings.Builder, codeArea string) {
@@ -115,7 +116,9 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	data := pkg.PageContent{}
 	err := json.Unmarshal([]byte(jsonStr), &data)
 	if err != nil {
-		panic(err)
+		fmt.Println("无法解析页面内容:", jsonStr)
+		fmt.Println(err)
+		return
 	}
 	var sb strings.Builder
 	sb.WriteString("<!-- 使用表格样式 -->\n" +
