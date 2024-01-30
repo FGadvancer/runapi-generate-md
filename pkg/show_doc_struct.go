@@ -68,7 +68,7 @@ type PageContent struct {
 		Pre  string `json:"pre"`
 		Post string `json:"post"`
 	} `json:"scripts"`
-	Extend struct {
+	Extend interface {
 	} `json:"extend"`
 }
 type Header struct {
