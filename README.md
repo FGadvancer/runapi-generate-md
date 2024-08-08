@@ -1,4 +1,4 @@
-# ruapi-generate-md
+# runapi-generate-md
 a tools to generate api markdown file by use open source edition showdoc's sqlite in type of runapi 
 
 ### 1.clone this project
