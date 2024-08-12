@@ -23,11 +23,11 @@ type PageContent struct {
 				Remark  string `json:"remark"`
 			} `json:"urlencoded"`
 			Formdata []struct {
-				Name    string `json:"name"`
-				Type    string `json:"type"`
-				Value   string `json:"value"`
-				Require string `json:"require"`
-				Remark  string `json:"remark"`
+				Name    string      `json:"name"`
+				Type    string      `json:"type"`
+				Value   interface{} `json:"value"`
+				Require string      `json:"require"`
+				Remark  string      `json:"remark"`
 			} `json:"formdata"`
 			JSON     string          `json:"json"`
 			JSONDesc []RequestHeader `json:"jsonDesc"`
