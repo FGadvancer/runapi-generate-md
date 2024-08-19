@@ -41,6 +41,7 @@ var FileName = map[string]string{
 	"获取发起的好友申请": "getSentApplication",
 
 	"多个用户对同一会话设置字段": "setConversations",
+	"获取当前用户的分页会话列表": "getOwnerConversation",
 
 	"创建群组":        "createGroup",
 	"邀请进群":        "inviteUserToGroup",
@@ -63,6 +64,7 @@ var FileName = map[string]string{
 	"处理入群申请":      "groupApplicationResponse",
 	"获取发起的入群申请":   "getUserReqGroupApplicationList",
 	"获取指定用户的入群申请": "getGroupApplicationListByUserID",
+	"获取群成员用户ID列表": "getGroupMemberUserId",
 
 	"强制下线": "forceLogout",
 }
@@ -91,7 +93,6 @@ var Exclude = map[string]struct{}{
 	"获取指定好友双向申请列表":              {},
 	"获取指定好友信息":                  {},
 	"获取增量会话列表":                  {},
-	"多个用户对同一会话设置字段":             {},
 	"获取全量会话ID列表":                {},
 	"获取特定好友列表":                  {},
 	"获取好友ID列表":                  {},
