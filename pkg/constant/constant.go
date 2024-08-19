@@ -64,7 +64,6 @@ var FileName = map[string]string{
 	"处理入群申请":      "groupApplicationResponse",
 	"获取发起的入群申请":   "getUserReqGroupApplicationList",
 	"获取指定用户的入群申请": "getGroupApplicationListByUserID",
-	"获取群成员用户ID列表": "getGroupMemberUserId",
 
 	"强制下线": "forceLogout",
 }
@@ -105,4 +104,5 @@ var Exclude = map[string]struct{}{
 	"获取增量已加入群组列表":               {},
 	"批量发送消息":                    {},
 	"查询消息":                      {},
+	"获取群成员用户ID列表":               {},
 }
