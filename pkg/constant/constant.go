@@ -20,6 +20,7 @@ var FileName = map[string]string{
 	"获取用户列表":        "getUserList",
 	"获取用户ID列表":      "getUserIDList",
 	"修改用户信息":        "updateUserInfo",
+	"修改用户信息ex":        "updateUserInfoEx",
 	"获取指定用户在线状态":    "getUserOnlineStatus",
 	"获取指定用户在线状态详情":  "getUserOnlineStatusDetail",
 
