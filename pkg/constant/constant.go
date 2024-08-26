@@ -62,6 +62,7 @@ var FileName = map[string]string{
 	"禁言群成员":       "muteGroupMember",
 	"取消禁言群成员":     "cancelMuteGroupMember",
 	"修改群组信息":      "setGroupInfo",
+	"修改群组信息EX":      "setGroupInfoEX",
 	"获取收到的入群申请":   "getRecvGroupApplicationList",
 	"处理入群申请":      "groupApplicationResponse",
 	"获取发起的入群申请":   "getUserReqGroupApplicationList",
