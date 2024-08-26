@@ -11,6 +11,7 @@ var FileName = map[string]string{
 	"撤回消息":     "revokeMessage",
 	"删除用户所有消息": "deleteUserAllMessage",
 	"发送消息":     "sendMessage",
+	"批量发送消息":   "batchSendMessage",
 
 	"导入用户": "userRegister",
 	"修改指定用户全局免打扰状态": "updateGlobalRemind",
@@ -20,6 +21,7 @@ var FileName = map[string]string{
 	"获取用户列表":        "getUserList",
 	"获取用户ID列表":      "getUserIDList",
 	"修改用户信息":        "updateUserInfo",
+	"修改用户信息ex":      "updateUserInfoEx",
 	"获取指定用户在线状态":    "getUserOnlineStatus",
 	"获取指定用户在线状态详情":  "getUserOnlineStatusDetail",
 
@@ -60,6 +62,7 @@ var FileName = map[string]string{
 	"禁言群成员":       "muteGroupMember",
 	"取消禁言群成员":     "cancelMuteGroupMember",
 	"修改群组信息":      "setGroupInfo",
+	"修改群组信息EX":      "setGroupInfoEX",
 	"获取收到的入群申请":   "getRecvGroupApplicationList",
 	"处理入群申请":      "groupApplicationResponse",
 	"获取发起的入群申请":   "getUserReqGroupApplicationList",
