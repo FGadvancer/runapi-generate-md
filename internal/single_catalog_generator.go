@@ -3,11 +3,12 @@ package internal
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/ruapi-generate-md/pkg"
-	"github.com/ruapi-generate-md/pkg/constant"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/ruapi-generate-md/pkg"
+	"github.com/ruapi-generate-md/pkg/constant"
 )
 
 var successMap = make(map[string]pkg.Response)
@@ -201,7 +202,7 @@ func generateOnePageMarkDown(jsonStr string, globalHeader []pkg.Header, bigTile 
 	valueURLWrite(&sb, data.Info.Method, "无")
 
 	titleWrite(&sb, "请求URL", 3)
-	valueURLWrite(&sb, replaceHost(data.Info.URL, "http://x.x.x.x:10002"), "无")
+	valueURLWrite(&sb, replaceHost(data.Info.URL, "{API_ADDRESS}"), "无")
 	sb.WriteString("\n\n")
 	titleWrite(&sb, "Header", 3)
 	isNeedToken := true
