@@ -4,21 +4,22 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/ruapi-generate-md/pkg"
-	"github.com/ruapi-generate-md/pkg/db"
-	"github.com/ruapi-generate-md/pkg/db/model"
 	"os"
 	"strings"
 	"sync"
+
+	"github.com/ruapi-generate-md/pkg"
+	"github.com/ruapi-generate-md/pkg/db"
+	"github.com/ruapi-generate-md/pkg/db/model"
 )
 
 var data *db.DataBase
 
 var sucessData = []pkg.Response{
-	{Name: "errCode", Type: "int", Remark: "错误码,0表示成功"},
-	{Name: "errMsg", Type: "string", Remark: "错误简要信息,无错误时为空"},
-	{Name: "errDlt", Type: "errDlt", Remark: "错误详细信息,无错误时为空"},
-	{Name: "data", Type: "object", Remark: "通用数据对象，具体结构见下方"},
+	{Name: "errCode", Type: "int", Remark: "错误码，0表示成功。"},
+	{Name: "errMsg", Type: "string", Remark: "错误简要信息，为空。"},
+	{Name: "errDlt", Type: "errDlt", Remark: "错误详细信息，为空。"},
+	{Name: "data", Type: "object", Remark: "通用数据对象，具体结构见下方："},
 }
 
 func GeneratePageByItemID(outPath string, projectName string, x bool) {
@@ -57,7 +58,7 @@ func GeneratePageByItemID(outPath string, projectName string, x bool) {
 		generateOnePageMarkDown(page.PageContent.String, globalHeader, page.PageTitle.String, dir, x, page.SNumber)
 	}
 	if len(pages) > 0 {
-		fmt.Printf("current dir %s generated file count：%d\n", dir, len(pages))
+		fmt.Printf("current dir %s generated file count: %d\n", dir, len(pages))
 
 	}
 	for _, catalog := range catalogs {

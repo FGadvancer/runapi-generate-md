@@ -18,10 +18,9 @@ var FileName = map[string]string{
 	"获取指定用户列表":      "getSpecifiedUser",
 	"获取用户token":     "getUserToken",
 	"查询用户是否注册":      "checkUserRegistered",
-	"获取用户列表":        "getUserList",
+	"获取已注册用户列表":     "getUserList",
 	"获取用户ID列表":      "getUserIDList",
 	"修改用户信息":        "updateUserInfo",
-	"修改用户信息ex":      "updateUserInfoEx",
 	"获取指定用户在线状态":    "getUserOnlineStatus",
 	"获取指定用户在线状态详情":  "getUserOnlineStatusDetail",
 
@@ -62,7 +61,6 @@ var FileName = map[string]string{
 	"禁言群成员":       "muteGroupMember",
 	"取消禁言群成员":     "cancelMuteGroupMember",
 	"修改群组信息":      "setGroupInfo",
-	"修改群组信息Ex":    "setGroupInfoEx",
 	"获取收到的入群申请":   "getRecvGroupApplicationList",
 	"处理入群申请":      "groupApplicationResponse",
 	"获取发起的入群申请":   "getUserReqGroupApplicationList",
@@ -108,4 +106,6 @@ var Exclude = map[string]struct{}{
 	"批量发送消息":                    {},
 	"查询消息":                      {},
 	"获取群成员用户ID列表":               {},
+	"修改用户信息old":                 {},
+	"修改群组信息old":                 {},
 }

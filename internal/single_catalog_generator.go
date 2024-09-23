@@ -72,7 +72,7 @@ func valueURLWrite(sb *strings.Builder, value, defalut string) {
 	sb.WriteString("- " + "`" + value + "`" + " \n")
 }
 func headerTableWrite(sb *strings.Builder, data []pkg.Header, isNeedToken bool) {
-	head := pkg.Header{Type: "类型", Name: "header名", Value: "示例值", Require: "必选", Remark: "说明"}
+	head := pkg.Header{Type: "类型", Name: "header 名", Value: "示例值", Require: "必选", Remark: "说明"}
 	data = append([]pkg.Header{head}, data...)
 	for i, v := range data {
 		if v.Name == "" || (v.Name == "token" && !isNeedToken) {
@@ -146,9 +146,9 @@ func successRespTableWrite(sb *strings.Builder, data []pkg.Response) {
 func failedRespTableWrite(sb *strings.Builder, _ []pkg.Response) {
 	head := pkg.Response{Type: "类型", Name: "参数名", Remark: "说明"}
 	data := []pkg.Response{
-		{Name: "errCode", Type: "int", Remark: "错误码,具体查看全局错误码文档"},
-		{Name: "errMsg", Type: "string", Remark: "错误简要信息"},
-		{Name: "errDlt", Type: "errDlt", Remark: "错误详细信息"},
+		{Name: "errCode", Type: "int", Remark: "错误码，具体查看全局错误码文档。"},
+		{Name: "errMsg", Type: "string", Remark: "错误简要信息。"},
+		{Name: "errDlt", Type: "errDlt", Remark: "错误详细信息。"},
 	}
 	data = append([]pkg.Response{head}, data...)
 	for i, v := range data {
