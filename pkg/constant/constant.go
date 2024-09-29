@@ -16,7 +16,7 @@ var FileName = map[string]string{
 	"导入用户": "userRegister",
 	"修改指定用户全局免打扰状态":   "updateGlobalRemind",
 	"获取指定用户详情列表":      "getSpecifiedUser",
-	"获取管理员token":      "getToken",
+	"获取管理员token":      "getAdminToken",
 	"获取用户token":       "getUserToken",
 	"查询用户是否注册":        "checkUserRegistered",
 	"获取已注册用户列表":       "getUserList",
@@ -33,7 +33,6 @@ var FileName = map[string]string{
 	"获取收到的好友申请": "getRecvApplication",
 	"移除黑名单":     "deleteBlackList",
 	"获取好友列表":    "getFriendList",
-	"修改好友备注":    "setFriendRemark",
 	"发起好友申请":    "sendApplication",
 	"删除好友":      "deleteFriend",
 	"获取黑名单列表":   "getBlackList",
@@ -109,4 +108,5 @@ var Exclude = map[string]struct{}{
 	"获取群成员用户ID列表":               {},
 	"修改用户信息old":                 {},
 	"修改群组信息old":                 {},
+	"修改好友备注":                    {},
 }
