@@ -72,7 +72,7 @@ func valueURLWrite(sb *strings.Builder, value, defalut string) {
 	sb.WriteString("- " + "`" + value + "`" + " \n")
 }
 func headerTableWrite(sb *strings.Builder, data []pkg.Header, isNeedToken bool) {
-	head := pkg.Header{Type: "类型", Name: "header 名", Value: "示例值", Require: "必选", Remark: "说明"}
+	head := pkg.Header{Type: "类型", Name: "header 名", Value: "示例值", Require: "是否必填", Remark: "说明"}
 	data = append([]pkg.Header{head}, data...)
 	for i, v := range data {
 		if v.Name == "" || (v.Name == "token" && !isNeedToken) {
@@ -97,7 +97,7 @@ func headerTableWrite(sb *strings.Builder, data []pkg.Header, isNeedToken bool) 
 	}
 }
 func reqTableWrite(sb *strings.Builder, data []pkg.RequestHeader) {
-	head := pkg.RequestHeader{Type: "类型", Name: "字段名", Require: "必选", Remark: "说明"}
+	head := pkg.RequestHeader{Type: "类型", Name: "字段名", Require: "是否必填", Remark: "说明"}
 	data = append([]pkg.RequestHeader{head}, data...)
 	for i, v := range data {
 		sb.WriteString("|" + v.Name)
